@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from daydreamer import (
+    AnthropicLLM,
     DaydreamConfig,
     DaydreamingLoop,
     IdeaCritic,
@@ -28,6 +29,19 @@ def _parse_args(argv: list[str]) -> argparse.Namespace:
     parser.add_argument("--coherence", type=float, default=6.0, help="Coherence threshold for accepting ideas")
     parser.add_argument("--usefulness", type=float, default=5.0, help="Usefulness threshold for accepting ideas")
     parser.add_argument("--log-level", default="INFO", help="Logging level")
+    parser.add_argument(
+        "--anthropic-model",
+        default=None,
+        help=(
+            "Name of the Anthropic model to use. If provided, the CLI will invoke Anthropic instead of the mock LLM. "
+            "Requires ANTHROPIC_API_KEY to be set."
+        ),
+    )
+    parser.add_argument(
+        "--anthropic-system-prompt",
+        default=None,
+        help="Optional system prompt to send with Anthropic requests.",
+    )
     return parser.parse_args(argv)
 
 
@@ -64,6 +78,13 @@ def main(argv: list[str] | None = None) -> int:
     memory = MemoryStore(persistence_path=args.memory)
     _bootstrap_memory(memory)
 
+    if args.anthropic_model:
+        llm_client = AnthropicLLM(
+            model=args.anthropic_model,
+            system_prompt=args.anthropic_system_prompt,
+        )
+    else:
+        llm_client = MockLLM()
     # For a production system you would swap in a real LLM client here.
     llm_client = MockLLM()
     generator = IdeaGenerator(llm_client)
