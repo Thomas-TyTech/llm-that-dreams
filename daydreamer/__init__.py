@@ -4,6 +4,7 @@ from .config import DaydreamConfig
 from .loop import DaydreamingLoop
 from .memory import MemoryStore, MemoryEntry
 from .llm import AnthropicLLM, LLMClient, MockLLM
+from .llm import LLMClient, MockLLM
 from .generator import IdeaGenerator
 from .critic import IdeaCritic, IdeaScore
 

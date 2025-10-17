@@ -8,6 +8,8 @@ dependencies = [
     "anthropic>=0.21.0",
 ]
 
+dependencies = []
+
 [project.optional-dependencies]
 dev = ["pytest>=7.0"]
 

@@ -85,6 +85,8 @@ def main(argv: list[str] | None = None) -> int:
         )
     else:
         llm_client = MockLLM()
+    # For a production system you would swap in a real LLM client here.
+    llm_client = MockLLM()
     generator = IdeaGenerator(llm_client)
     critic = IdeaCritic(llm_client)
 

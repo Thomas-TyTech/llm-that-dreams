@@ -34,6 +34,7 @@ python daydream.py --iterations 3 --anthropic-model claude-3-haiku-20240307
 ```
 
 You can optionally provide `--anthropic-system-prompt` to set a global system message.
+The CLI seeds an initial set of concepts and uses a deterministic mock LLM so it can run offline. Swap `MockLLM` for a real client (OpenAI, Anthropic, local models, etc.) inside `daydream.py` to connect the loop to production models.
 
 All generated ideas are appended to the memory store (default `memory.json`). They become eligible for future pairings, enabling the recombinatorial dynamics described in the paper.
 

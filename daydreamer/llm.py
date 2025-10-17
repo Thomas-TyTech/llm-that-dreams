@@ -14,6 +14,9 @@ if TYPE_CHECKING:  # pragma: no cover - import for type checking only
     from anthropic import Anthropic as AnthropicClient
 else:  # pragma: no cover - placeholder type when anthropic isn't installed at runtime
     AnthropicClient = Any
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Iterable
 
 
 @dataclass(slots=True)
@@ -118,3 +121,4 @@ __all__ = [
     "AnthropicLLM",
     "batched_generate",
 ]
+__all__ = ["LLMClient", "LLMRequest", "LLMResponse", "MockLLM", "batched_generate"]
